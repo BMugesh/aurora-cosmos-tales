@@ -34,22 +34,25 @@ export const ActCard = ({ act, onChoice, onNext }: ActCardProps) => {
         </motion.div>
 
         {/* Characters */}
-        <div className="flex justify-around items-center py-8 px-4 bg-gradient-to-b from-secondary/50 to-transparent">
+        <div className="flex justify-around items-center py-8 px-4 bg-gradient-to-b from-secondary/50 to-transparent min-h-[300px]">
           <CharacterAnimation
             character="aurora"
             emotion={act.characterEmotion}
+            actId={act.id}
             className="w-32 h-32 md:w-48 md:h-48"
           />
           
           <CharacterAnimation
             character="pilot"
             emotion={act.pilotEmotion}
+            actId={act.id}
             className="w-32 h-32 md:w-48 md:h-48"
           />
           
           <CharacterAnimation
             character="plane"
             emotion="neutral"
+            actId={act.id}
             className="w-24 h-24 md:w-32 md:h-32"
           />
         </div>

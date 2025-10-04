@@ -9,7 +9,8 @@ import { Choice, Character } from "@/types/storyTypes";
 import { useGameState } from "@/hooks/useGameState";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
+import gsap from "gsap";
 
 const EnhancedStory = () => {
   const [currentActId, setCurrentActId] = useState(1);
@@ -103,6 +104,43 @@ const EnhancedStory = () => {
     <div className="min-h-screen relative overflow-hidden" data-theme="cosmic">
       <SpaceBackground />
       
+      {/* Cosmic Header */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-background/30 border-b-2 border-primary/30"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
+      >
+        <div className="container mx-auto flex items-center justify-between px-4 py-3">
+          <motion.button
+            onClick={handleBackToHome}
+            className="btn btn-ghost btn-sm gap-2 font-comic neon-text"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Home
+          </motion.button>
+          
+          <motion.h1 
+            className="text-lg md:text-2xl font-bubble text-gradient flex items-center gap-2"
+            animate={{ 
+              textShadow: [
+                "0 0 10px hsl(var(--primary) / 0.5)",
+                "0 0 20px hsl(var(--secondary) / 0.8)",
+                "0 0 10px hsl(var(--primary) / 0.5)"
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <Sparkles className="w-5 h-5 md:w-6 md:h-6" />
+            Aurora & The Lost Pilot
+          </motion.h1>
+          
+          <div className="w-20" /> {/* Spacer for centering */}
+        </div>
+      </motion.div>
+      
       <PerspectiveSwitcher 
         currentPerspective={gameState.currentPerspective}
         onSwitch={handlePerspectiveSwitch}
@@ -113,32 +151,23 @@ const EnhancedStory = () => {
         totalActs={expandedStoryActs.length} 
       />
 
-      <div className="relative z-10 pt-24 pb-12 px-4">
+      <div className="relative z-10 pt-28 pb-12 px-4">
         <AnimatePresence mode="wait">
-          <EnhancedActCard
+          <motion.div
             key={currentActId}
-            act={displayAct}
-            gameState={gameState}
-            onChoice={handleChoice}
-            onNext={displayAct.isEnding ? handleNext : undefined}
-          />
-        </AnimatePresence>
-
-        {/* Back to Home Button */}
-        <motion.div
-          className="text-center mt-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <button
-            onClick={handleBackToHome}
-            className="btn btn-ghost gap-2 text-lg font-comic"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.5 }}
           >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Home
-          </button>
-        </motion.div>
+            <EnhancedActCard
+              act={displayAct}
+              gameState={gameState}
+              onChoice={handleChoice}
+              onNext={displayAct.isEnding ? handleNext : undefined}
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

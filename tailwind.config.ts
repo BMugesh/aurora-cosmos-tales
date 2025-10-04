@@ -4,6 +4,24 @@ export default {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
+  plugins: [require("tailwindcss-animate"), require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        cosmic: {
+          "primary": "#8B5CF6",
+          "secondary": "#06B6D4",
+          "accent": "#F472B6",
+          "neutral": "#1F2937",
+          "base-100": "#0F172A",
+          "info": "#06B6D4",
+          "success": "#10B981",
+          "warning": "#F59E0B",
+          "error": "#EF4444",
+        },
+      },
+    ],
+  },
   theme: {
     container: {
       center: true,
@@ -13,6 +31,11 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Fredoka", "sans-serif"],
+        comic: ["Baloo 2", "cursive"],
+        bubble: ["Bubblegum Sans", "cursive"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -103,5 +126,4 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
 } satisfies Config;

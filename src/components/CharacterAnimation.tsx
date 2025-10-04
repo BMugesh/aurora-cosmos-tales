@@ -7,7 +7,7 @@ import planeImg from "@/assets/plane.png";
 
 interface CharacterAnimationProps {
   character: "aurora" | "pilot" | "plane";
-  emotion: "happy" | "sad" | "excited" | "neutral" | "surprised" | "worried";
+  emotion: "happy" | "sad" | "excited" | "neutral" | "surprised" | "worried" | "angry" | "scared" | "confident" | "funny";
   actId: number;
   className?: string;
 }
